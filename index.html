@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Base64 Decode/Encode</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <h1>Base 64 string Encoder/Decoder</h1>
+        </div>
+        <div class="row">
+            <textarea type="text" id="base64" placeholder="Base64 Text" onkeyup="decode(this)" oninput="decode(this)"></textarea>
+        </div>
+        <div class="row">
+            <textarea type="text" id="decoded" placeholder="Decoded text" onkeyup="encode(this)" oninput="encode(this)"></textarea>
+        </div>
+        <div class="row">
+            <span id="feedback"></span>
+        </div>
+        <div class="row">
+            <div class="column">
+                <button class="button" onclick="copyEncoded()">Copy Encoded</button>
+            </div>
+            <div class="column">
+                <button class="button" onclick="copyDecoded()">Copy Decoded</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        var base64 = document.getElementById("base64");
+        var decoded = document.getElementById("decoded");
+        decode = (ev) => {
+            decoded.value = atob(base64.value);
+            resize();
+        };
+        encode = (ev) => {
+            base64.value = btoa(decoded.value);
+            resize();
+        };
+        resize = () => {
+            console.log("resize");
+            base64.style.height = 'inherit'
+            base64.style.height = base64.scrollHeight + 'px'
+            decoded.style.height = 'inherit'
+            decoded.style.height = decoded.scrollHeight + 'px'
+        }
+        var copyTextareaBtn = document.querySelector('.js-textareacopybtn');
+        copyEncoded = (ev) => {
+            base64.select();
+            document.execCommand('copy');
+        };
+        copyDecoded = (ev) => {
+            decoded.select();
+            document.execCommand('copy');
+        };
+    </script>
+</body>
+
+</html>

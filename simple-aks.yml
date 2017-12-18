@@ -1,0 +1,29 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: base64deode-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: base64deode-app
+    spec:
+      containers:
+      - name: base64deode-app
+        image: ocptereg.azurecr.io/static/test:latest
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: internal
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: base64decode
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: base64deode-app
